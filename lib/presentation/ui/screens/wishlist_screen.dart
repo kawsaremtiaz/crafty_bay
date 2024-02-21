@@ -1,5 +1,7 @@
 import 'package:crafty_bay/presentation/state_holders/main_bottom_nav_controller.dart';
-import 'package:crafty_bay/presentation/ui/widgets/product_card_item.dart';
+import 'package:crafty_bay/presentation/state_holders/wish_list_controller.dart';
+import 'package:crafty_bay/presentation/ui/widgets/center_circular_progress_indicator.dart';
+import 'package:crafty_bay/presentation/ui/widgets/wish_list/wish_product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +13,15 @@ class WishListScreen extends StatefulWidget {
 }
 
 class _WishListScreenState extends State<WishListScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.find<WishListController>().getWishList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -33,20 +44,23 @@ class _WishListScreenState extends State<WishListScreen> {
           ),
           elevation: 3,
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: GridView.builder(
-            itemCount: 100,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 0.90,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 4
-            ),
-            itemBuilder: (context, index) {
-              // return const FittedBox(child: ProductCardItem());
-            },
-          ),
+        body: GetBuilder<WishListController>(
+          builder: (wishListController) {
+            if (wishListController.inProgress == true) {
+              return const CenterCircularProgressIndicator();
+            }
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: ListView.builder(
+                itemCount: wishListController.wishListModel.wishItemList?.length ?? 0,
+                itemBuilder: (context, index) {
+                  return WishProductItem(
+                    wishItem: wishListController.wishListModel.wishItemList![index],
+                  );
+                },
+              ),
+            );
+          }
         ),
       ),
     );

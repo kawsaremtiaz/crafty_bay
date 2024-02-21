@@ -36,19 +36,21 @@ class _SizeSelectorState extends State<SizeSelector> {
                   }
                 },
                 child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 8),
+                  height: 35,
+                    width: 35,
                     margin: const EdgeInsets.only(right: 8),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                       border: Border.all(color: Colors.grey),
                       color: c == _selectedSize ? AppColors.primaryColor : null,
                     ),
-                    child: Text(
-                      c,
-                      style: TextStyle(
-                        color:
-                            c == _selectedSize ? Colors.white : Colors.black54,
+                    child: Center(
+                      child: Text(
+                        c,
+                        style: TextStyle(
+                          color:
+                              c == _selectedSize ? Colors.white : Colors.black54,
+                        ),
                       ),
                     )),
               ))

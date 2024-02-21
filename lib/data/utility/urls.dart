@@ -21,5 +21,12 @@ class Urls {
       '$_baseUrl/ProductDetailsById/$productId';
   static String addToCart = '$_baseUrl/CreateCartList';
   static String cartList = '$_baseUrl/CartList';
+  static String deleteCartList(int productId) =>
+      '$_baseUrl/DeleteCartList/$productId';
+  static String wishList = '$_baseUrl/ProductWishList';
+  static String addWishList(int productId) =>
+      '$_baseUrl/CreateWishList/$productId';
+  static String removeWishList(int productId) =>
+      '$_baseUrl/RemoveWishList/$productId';
   static String createInvoice = '$_baseUrl/InvoiceCreate';
 }
